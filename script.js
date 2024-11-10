@@ -99,12 +99,13 @@ const playSong = (id) => {
   playButton.classList.add("playing");
 
   highlightCurrentSong();
+  setPlayerDisplay();
   audio.play();
 };
 
 const pauseSong = () => {
   userData.songCurrentTime = audio.currentTime;
-  
+
   playButton.classList.remove("playing");
   audio.pause();
 };
@@ -121,17 +122,23 @@ const playNextSong = () => {
 };
 
 const playPreviousSong = () => {
-   if (userData?.currentSong === null) return;
-   else {
+  if (userData?.currentSong === null) return;
+  else {
     const currentSongIndex = getCurrentSongIndex();
     const previousSong = userData?.songs[currentSongIndex - 1];
 
     playSong(previousSong.id);
-   }
+  }
 };
 
 const setPlayerDisplay = () => {
-  
+  const playingSong = document.getElementById("player-song-title");
+  const songArtist = document.getElementById("player-song-artist");
+  const currentTitle = userData?.currentSong?.title;
+  const currentArtist = userData?.currentSong?.artist;
+
+  playingSong.textContent = currentTitle ? currentTitle : "";
+  songArtist.textContent = currentArtist ? currentArtist : "";
 };
 
 const highlightCurrentSong = () => {
@@ -149,7 +156,7 @@ const highlightCurrentSong = () => {
 
 const renderSongs = (array) => {
   const songsHTML = array
-    .map((song)=> {
+    .map((song) => {
       return `
       <li id="song-${song.id}" class="playlist-song">
       <button class="playlist-song-info" onclick="playSong(${song.id})">
@@ -169,24 +176,26 @@ const renderSongs = (array) => {
   playlistSongs.innerHTML = songsHTML;
 };
 
+
+
 const getCurrentSongIndex = () => userData?.songs.indexOf(userData?.currentSong);
 
 playButton.addEventListener("click", () => {
-    if (userData?.currentSong === null) {
+  if (userData?.currentSong === null) {
     playSong(userData?.songs[0].id);
   } else {
     playSong(userData?.currentSong.id);
   }
 });
 
-pauseButton.addEventListener("click",  pauseSong);
+pauseButton.addEventListener("click", pauseSong);
 
 nextButton.addEventListener("click", playNextSong);
 
 previousButton.addEventListener("click", playPreviousSong);
 
 const sortSongs = () => {
-  userData?.songs.sort((a,b) => {
+  userData?.songs.sort((a, b) => {
     if (a.title < b.title) {
       return -1;
     }
