@@ -4,6 +4,7 @@ const pauseButton = document.getElementById("pause");
 const nextButton = document.getElementById("next");
 const previousButton = document.getElementById("previous");
 const shuffleButton = document.getElementById("shuffle");
+const arty = document.getElementById("player-album-art");
 
 const allSongs = [
   {
@@ -61,12 +62,14 @@ const audio = new Audio();
 let userData = {
   songs: [...allSongs],
   currentSong: null,
+  currentArtwork: null,
   songCurrentTime: 0,
 };
 
 const playSong = (id) => {
   const song = userData?.songs.find((song) => song.id === id);
   audio.src = song.src;
+  audio.artwork = song.artwork;
   audio.title = song.title;
 
   if (userData?.currentSong === null || userData?.currentSong.id !== song.id) {
@@ -81,6 +84,9 @@ const playSong = (id) => {
   setPlayerDisplay();
   setPlayButtonAccessibleText();
   audio.play();
+  arty.innerHTML = `<img src="${audio.artwork}" alt="song cover art" />`;
+
+
 };
 
 const pauseSong = () => {
