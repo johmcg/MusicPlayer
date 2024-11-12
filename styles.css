@@ -1,12 +1,12 @@
 :root {
-    /* colors */
-    --primary-color: #dfdfe2;
-    --secondary-color: #ffffff;
-    --app-background-color: #4d4d62;
-    --background-color: #1b1b32;
-    --foreground-color: #3b3b4f;
-    --highlight-color: #f1be32;
-  
+  /* colors */
+  --primary-color: #ffffff; /* Lighter text color */
+  --secondary-color: #f0f0f0; /* Lighter background for elements */
+  --app-background-color: #6f42c1; /* Darker primary background */
+  --background-color: #18171b; /* Even darker background for specific sections */
+  --foreground-color: #18171b; /* Grayish text color */
+  --highlight-color: #6f42c1; /* Purple accent color */
+
     /* font sizes */
     --root-font-size: 16px;
     font-size: var(--root-font-size);
